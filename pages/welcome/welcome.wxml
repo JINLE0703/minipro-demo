@@ -1,0 +1,5 @@
+<!--pages/welcome/welcome.wxml-->
+
+<image src="/images/avatar/1.png"></image>
+<text>Hello,Jinle</text>
+<button></button>
