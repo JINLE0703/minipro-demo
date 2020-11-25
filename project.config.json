@@ -28,18 +28,18 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": false,
     "userConfirmedUseCompilerModuleSwitch": false,
-    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.1",
-  "appid": "wx081f44cae93b64ab",
+  "appid": "wxf498ddb44b8650be",
   "projectname": "minipro",
   "debugOptions": {
     "hidedInDevtools": []
@@ -49,23 +49,23 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
+    "plugin": {
       "list": []
     },
     "game": {
-      "list": []
-    },
-    "plugin": {
       "list": []
     },
     "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/posts/posts",
+          "pathName": "pages/posts/posts",
+          "scene": null
+        }
+      ]
     }
   }
 }

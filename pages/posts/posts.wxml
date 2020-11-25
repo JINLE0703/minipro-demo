@@ -1,0 +1,20 @@
+<!--pages/posts/posts.wxml-->
+<view>
+  <swiper
+    indicator-dots
+    indicator-active-color="#FFC0CB"
+    autoplay 
+    interval="3000"
+    circular
+  >
+    <swiper-item>
+      <image src="/images/jumpfly.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/bestplayers.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/lpl.png"></image>
+    </swiper-item>
+  </swiper>
+</view>
