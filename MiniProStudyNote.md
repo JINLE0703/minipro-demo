@@ -46,3 +46,53 @@
 
 可以给当前页面的 `page` 标签添加 `background-color`
 
+# Day 02
+
+### 数据绑定
+
+大部分是单向数据绑定，但也可以实现双向数据绑定
+
+Page.data 和 Page.prototype.setData
+
+### 页面生命周期
+
+`onLoad`：监听页面加载，大部分页面初始化工作函数
+
+`onReady`：监听页面初次渲染完成
+
+`onShow`：监听页面显示
+
+`onHide`：监听页面隐藏
+
+`onUnload`：监听页面卸载
+
+### 条件渲染
+
+使用 `wx:if=""` 来判断是否需要渲染该代码块，也可以用 `wx:elif` 和 `wx:else` 来添加一个 else 块：
+
+```html
+<view wx:if="{{length > 5}}"> 1 </view>
+<view wx:elif="{{length > 2}}"> 2 </view>
+<view wx:else> 3 </view>
+```
+
+### 列表渲染
+
+在组件上使用 `wx:for` 控制属性绑定一个数组，即可使用数组中各项的数据重复渲染该组件。
+
+默认数组的当前项的下标变量名默认为 `index`，数组当前项的变量名默认为 `item`
+
+```html
+<view wx:for="{{array}}">
+  {{index}}: {{item.message}}
+</view>
+```
+
+使用 `wx:for-item` 可以指定数组当前元素的变量名
+
+使用 `wx:for-index` 可以指定数组当前下标的变量名
+
+如果列表中项目的位置会动态改变或者有新的项目添加到列表中，并且希望列表中的项目保持自己的特征和状态，需要使用 `wx:key` 来指定列表中项目的唯一的标识符。
+
+### 事件
+
