@@ -13,9 +13,9 @@
   </swiper>
 
   <block wx:for="{{postList}}" wx:key="postId">
-    <view class="post-container">
+    <view data-post-id="{{item.postId}}" bind:tap="onToDeatil" class="post-container">
       <view class="post-author-date">
-        <image class="post-author-avatar" src="{{item.avatar}}"></image>
+        <image catch:tap="handleTapAvatar" class="post-author-avatar" src="{{item.avatar}}"></image>
         <text class="post-date">{{item.date}}</text>
       </view>
 
@@ -23,14 +23,13 @@
 
       <image class="post-image" src="{{item.imgSrc}}"></image>
 
-      <text
-        class="post-content">{{item.content}}</text>
+      <text class="post-content">{{item.content}}</text>
 
       <view class="post-like">
         <l-icon class="post-like-icon" name="favor" size="26" color="#666"></l-icon>
-        <text class="post-like-font">88</text>
+        <text class="post-like-font">{{item.collection}}</text>
         <l-icon class="post-watch-icon" name="eye" size="30" color="#666"></l-icon>
-        <text class="post-watch-font">102</text>
+        <text class="post-watch-font">{{item.reading}}</text>
       </view>
     </view>
   </block>

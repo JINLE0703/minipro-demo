@@ -1,0 +1,101 @@
+/* pages/post-detail/post-detail.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.head-container {
+  width: 100%;
+  height: 460rpx;
+  position: relative;
+}
+
+.head-image {
+  width: 100%;
+  height: 460rpx;
+  opacity: .6;
+}
+
+.audio {
+  position: absolute;
+  width: 102rpx;
+  height: 110rpx;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.author-data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+}
+
+.author-avatar {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.author-name {
+  font-size: 30rpx;
+  font-weight: 300;
+  margin-left: 20rpx;
+  color: #666;
+}
+
+.const-text {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 20rpx;
+}
+
+.date {
+  font-size: 24rpx;
+  margin-left: 20rpx;
+  color: #666;
+}
+
+.title {
+  margin-left: 40rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-top: 30rpx;
+  color: #4b556c;
+  letter-spacing: 2px;
+}
+
+.tool {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  margin-top: 20rpx;
+}
+
+.horizon {
+  width: 660rpx;
+  height: 1px;
+  background-color: #e5e5e5;
+  position: absolute;
+  z-index: -999;
+}
+
+.icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-left: 30rpx;
+}
+
+.content {
+  color: #666;
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+  line-height: 44rpx;
+  letter-spacing: 2px;
+}

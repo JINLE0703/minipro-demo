@@ -1,14 +1,14 @@
 App({
-  onLaunch (options) {
+  onLaunch(options) {
     // Do something initial when launch.
   },
-  onShow (options) {
+  onShow(options) {
     // Do something when show.
   },
-  onHide () {
+  onHide() {
     // Do something when hide.
   },
-  onError (msg) {
+  onError(msg) {
     console.log(msg)
   }
 })

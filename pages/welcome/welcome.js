@@ -8,7 +8,7 @@ Page({
 
   },
 
-  onTap: function () {
+  handleTap(e) {
     wx.redirectTo({
       url: '/pages/posts/posts'
     });

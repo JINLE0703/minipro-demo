@@ -10,6 +10,17 @@ Page({
     postList: []
   },
 
+  onToDeatil(e) {
+    const pid = e.currentTarget.dataset.postId;
+    wx.navigateTo({
+      url: `/pages/post-detail/post-detail?pid=${pid}`
+    });
+  },
+
+  handleTapAvatar() {
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

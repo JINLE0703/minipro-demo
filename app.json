@@ -1,11 +1,13 @@
 {
   "pages": [
     "pages/welcome/welcome",
-    "pages/posts/posts"
+    "pages/posts/posts",
+    "pages/post-detail/post-detail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFC0CB"
   },
+  "requiredBackgroundModes": ["audio", "location"],
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "l-icon": "/miniprogram_npm/lin-ui/icon/index"

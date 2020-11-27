@@ -8,10 +8,11 @@
 
 #### 阅读页
 
-1. 轮播预览图
-2. 文章列表
-3. 文章详情页
-4. 文章收藏、分享
+1. 轮播预览图（swiper 组件，已完成）
+2. 文章列表（列表渲染，已完成）
+3. 文章详情页（页面通信，已完成）
+4. 文章收藏、分享（缓存，弹窗，已完成）
+5. 音乐播放（BackgroundAudioManager，已完成 ）
 
 数据来源：假数据
 
@@ -46,7 +47,7 @@
 
 可以给当前页面的 `page` 标签添加 `background-color`
 
-# Day 02
+# Day02
 
 ### 数据绑定
 
@@ -96,3 +97,283 @@ Page.data 和 Page.prototype.setData
 
 ### 事件
 
+- 事件是视图层到逻辑层的通讯方式
+- 事件可以将用户的行为反馈到逻辑层进行处理
+- 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数
+- 事件对象可以携带额外信息，如 id, dataset, touches
+
+##### 使用
+
+```html
+<view bindtap="tapName"> Click me! </view>
+```
+
+点击时会触发页面的 tapName 函数
+
+```html
+<view bindtap="{{ handlerName }}"> Click here! </view>
+```
+
+点击时会触发页面的 `this.data.handlerName` 
+
+##### 分类
+
+- 冒泡事件：当一个组件上的事件被触发后，该事件会向父节点传递
+- 非冒泡事件：当一个组件上的事件被触发后，该事件不会向父节点传递
+
+##### 绑定并阻止事件冒泡
+
+用 `catch` 来绑定事件会阻止事件向上冒泡
+
+多由于开发自定义组件
+
+```html
+<view id="outer" bindtap="handleTap1">
+  outer view	// handleTap1
+  <view id="middle" catchtap="handleTap2">
+    middle view		// handleTap2
+    <view id="inner" bindtap="handleTap3">
+      inner view	// handleTap3 handleTap2
+    </view>
+  </view>
+</view>
+```
+
+##### 互斥事件绑定
+
+使用 `mut-bind` 来绑定事件。一个 `mut-bind` 触发后，如果事件冒泡到其他节点上，其他节点上的 `mut-bind` 绑定函数不会被触发，但 `bind` 绑定函数和 `catch` 绑定函数依旧会被触发。
+
+```html
+<view id="outer" mut-bind:tap="handleTap1">
+  outer view	// handleTap1
+  <view id="middle" bindtap="handleTap2">
+    middle view		// handleTap2 handleTap1
+    <view id="inner" mut-bind:tap="handleTap3">
+      inner view	// handleTap3 handleTap2
+    </view>
+  </view>
+</view>
+```
+
+##### 事件的捕获阶段
+
+触摸类事件支持捕获阶段。
+
+捕获阶段位于冒泡阶段之前，且在捕获阶段中，事件到达节点的顺序与冒泡阶段恰好相反。需要在捕获阶段监听事件时，可以采用`capture-bind`、`capture-catch`关键字，后者将中断捕获阶段和取消冒泡阶段。
+
+```html
+<view id="outer" bind:touchstart="handleTap1" capture-bind:touchstart="handleTap2">
+  outer view
+  <view id="inner" bind:touchstart="handleTap3" capture-bind:touchstart="handleTap4">
+    inner view	// handleTap2 handleTap4 handleTap3 handleTap1
+  </view>
+</view>
+```
+
+更多参考 [官方文档-事件系统](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html)
+
+# Day03
+
+### 路由
+
+##### wx.navigateTo(Object)
+
+保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。
+
+小程序中页面栈最多十层。
+
+##### wx.redirectTo(Object)
+
+关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
+
+### 自定义属性
+
+`data-xxx`，可在触发函数的 event 中获取到
+
+### 页面通讯
+
+##### url 传递
+
+通过跳转页面函数的 url 传递参数，在新页面的 onLoad 函数的 options 中获取
+
+```js
+// post.js
+wx.navigateTo({
+	url: `/pages/post-detail/post-detail?pid=${pid}`
+});
+```
+
+```js
+// post-detail.js
+onLoad: function (options) {
+  console.log(options)	// {pid: 3}
+}
+```
+
+### 全局变量
+
+在 `app.js` 中定义变量，在任何组件使用 `getApp()`  可获取小程序实例
+
+### 小程序缓存
+
+每个微信小程序都可以有自己的本地缓存，可以通过 [wx.setStorage](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorage.html)/[wx.setStorageSync](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html)、[wx.getStorage](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorage.html)/[wx.getStorageSync](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html)、[wx.clearStorage](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.clearStorage.html)/[wx.clearStorageSync](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.clearStorageSync.html)，[wx.removeStorage](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.removeStorage.html)/[wx.removeStorageSync](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.removeStorageSync.html) 对本地缓存进行读写和清理。
+
+提供的 api 有同步版本和异步版本
+
+小程序目前对异步版的 api 已经支持了 promise 和 async/await 的方法操作异步
+
+```js
+wx.getStorage({
+  key: 'key'
+}).then((res) => {
+	console.log(res)
+})
+```
+
+```js
+async onLoad() {
+	const res = await wx.getStorage({
+		key: 'key'
+	});
+    console.log(res);
+}
+```
+
+##### wx.setStorage/wx.setStorageSync
+
+将数据存储在本地缓存中指定的 key 中
+
+会覆盖掉原来该 key 对应的内容。除非用户主动删除或因存储空间原因被系统清理，否则数据都一直可用。
+
+单个 key 允许存储的最大数据长度为 1MB，所有数据存储上限为 10MB。
+
+```js
+wx.setStorage({
+  key:"key",
+  data:"value"
+})
+```
+
+```js
+wx.setStorageSync('key', 'value')
+```
+
+##### wx.removeStorage/wx.removeStorageSync
+
+从本地缓存中移除指定 key
+
+```js
+wx.removeStorage({
+  key: 'key',
+  success (res) {
+    console.log(res)
+  }
+})
+```
+
+```js
+wx.removeStorageSync('key')
+```
+
+##### wx.getStorage/wx.getStorageSync
+
+从本地缓存中异步获取指定 key 的内容
+
+```js
+wx.getStorage({
+  key: 'key',
+  success (res) {
+    console.log(res.data)
+  }
+})
+```
+
+```js
+wx.getStorageSync('key')
+```
+
+##### wx.getStorageInfo/wx.getStorageInfoSync
+
+获取当前storage的相关信息
+
+```js
+wx.getStorageInfo({
+  success (res) {
+    console.log(res.keys)
+    console.log(res.currentSize)
+    console.log(res.limitSize)
+  }
+})
+```
+
+```js
+wx.getStorageInfoSync()
+```
+
+##### wx.clearStorage/wx.clearStorageSync
+
+清理本地数据缓存
+
+```js
+wx.clearStorage()
+```
+
+```js
+wx.clearStorageSync()
+```
+
+### 交互弹窗
+
+##### wx.showToast
+
+显示消息提示框
+
+```js
+wx.showToast({
+  title: '成功',
+  icon: 'success',
+  duration: 2000
+})
+```
+
+##### wx.showModal
+
+显示模态对话框，可监听确认和取消函数
+
+```js
+wx.showModal({
+  title: '提示',
+  content: '这是一个模态弹窗',
+  success (res) {
+    if (res.confirm) {
+      console.log('用户点击确定')
+    } else if (res.cancel) {
+      console.log('用户点击取消')
+    }
+  }
+})
+```
+
+##### wx.showLoading
+
+显示 loading 提示框。需主动调用 `wx.hideLoading` 才能关闭提示框
+
+##### wx.showActionSheet
+
+显示自定义操作菜单，success 回调返回值属性 tapIndex 是点击的按钮序号 
+
+```js
+wx.showActionSheet({
+  itemList: ['A', 'B', 'C'],
+  success (res) {
+    console.log(res.tapIndex)
+  },
+  fail (res) {
+    console.log(res.errMsg)
+  }
+})
+```
+
+### 小优化
+
+视频中对收藏图片的切换直接用 vx:if 切换性能不如用变量修改 src 的属性
