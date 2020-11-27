@@ -1,5 +1,6 @@
 // pages/post-detail/post-detail.js
 import { postList } from '../../public/data';
+const app = getApp();
 
 Page({
 
@@ -11,7 +12,7 @@ Page({
     _pid: null,
     collected: false,
     isPlayingAudio: false,
-    mgr: null
+    _mgr: null
   },
 
   async handleCollect() {
@@ -47,17 +48,16 @@ Page({
       isPlayingAudio: !this.data.isPlayingAudio
     });
 
-    // 第一次点击初始化背景音乐
-    if (!this.data.mgr) {
-      const mgr = wx.getBackgroundAudioManager();
-      mgr.src = this.data.postData.music.url;
-      mgr.title = this.data.postData.music.title;
-      mgr.coverImgUrl = this.data.postData.music.coverImg;
-      this.setData({
-        mgr
-      });
+    if(this.data.isPlayingAudio) {
+      // 播放
+      this.data._mgr.src = this.data.postData.music.url;
+      this.data._mgr.title = this.data.postData.music.title;
+      this.data._mgr.coverImgUrl = this.data.postData.music.coverImg;
+      app.gIsPlayingPostId = this.data._pid;
     } else {
-      this.data.isPlayingAudio ? this.data.mgr.play() : this.data.mgr.pause();
+      // 暂停
+      this.data._mgr.pause();
+      app.gIsPlayingPostId = -1;
     }
   },
 
@@ -67,12 +67,34 @@ Page({
   onLoad: function (options) {
     // 获取文章数据
     this.data._pid = options.pid;
+    // 文章未收藏 初始化收藏状态
+    wx.getStorageSync('posts_collected')[options.pid] === undefined ? wx.setStorageSync('posts_collected', {
+      ...wx.getStorageSync('posts_collected'),
+      [this.data._pid]: false
+    }) : 1;
+    // 初始化背景音乐
+    const mgr = wx.getBackgroundAudioManager();
+    mgr.onPlay(() => {
+      this.setData({
+        isPlayingAudio: true
+      });
+      app.gIsPlayingAudio = true;
+    });
+    mgr.onPause(() => {
+      this.setData({
+        isPlayingAudio: false
+      });
+      app.gIsPlayingAudio = false;
+    });
+
     this.setData({
       postData: postList.filter(item => item.postId === parseInt(options.pid))[0],
       // 判断文章收藏状态
-      collected: wx.getStorageSync('posts_collected')[options.pid]
+      collected: wx.getStorageSync('posts_collected')[options.pid],
+      isPlayingAudio: app.gIsPlayingAudio && app.gIsPlayingPostId === options.pid,
+      _mgr: mgr
     });
-
+    
   },
 
   /**

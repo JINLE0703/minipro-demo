@@ -13,6 +13,7 @@
 3. 文章详情页（页面通信，已完成）
 4. 文章收藏、分享（缓存，弹窗，已完成）
 5. 音乐播放（BackgroundAudioManager，已完成 ）
+6. 文章列表顶部图片跳转（已完成）
 
 数据来源：假数据
 
@@ -373,6 +374,33 @@ wx.showActionSheet({
   }
 })
 ```
+
+### 背景音乐
+
+##### wx.getBackgroundAudioManager()
+
+获取**全局唯一**的背景音频管理器
+
+##### BackgroundAudioManager
+
+背景音乐实例
+
+```js
+const backgroundAudioManager = wx.getBackgroundAudioManager()
+
+backgroundAudioManager.title = '此时此刻'
+backgroundAudioManager.epname = '此时此刻'
+backgroundAudioManager.singer = '许巍'
+backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
+// 设置了 src 之后会自动播放
+backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46'
+```
+
+##### 小问题
+
+音乐加载后立即调用 `.pause()` 方法无法立即暂停播放，原因是这时音乐还没开始播放，可先调用 `.play()` 再调用 `.pause()` 
+
+`setData` 设置 data 里的背景音乐实例无效，需直接用 `this.data.backgroundAudioManager.src = xxx` 赋值形式才能触发
 
 ### 小优化
 

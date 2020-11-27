@@ -95,6 +95,7 @@
   color: #666;
   margin-left: 30rpx;
   margin-top: 20rpx;
+  margin-bottom: 60rpx;
   margin-right: 30rpx;
   line-height: 44rpx;
   letter-spacing: 2px;

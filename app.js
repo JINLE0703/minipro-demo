@@ -10,5 +10,8 @@ App({
   },
   onError(msg) {
     console.log(msg)
-  }
+  },
+  // 标识背景音乐
+  gIsPlayingAudio: false,
+  gIsPlayingPostId: -1
 })

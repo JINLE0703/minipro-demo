@@ -1,19 +1,13 @@
 <!--pages/posts/posts.wxml-->
 <view>
   <swiper indicator-dots indicator-active-color="#FFC0CB" autoplay interval="3000" circular>
-    <swiper-item>
-      <image src="/public/images/jumpfly.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image src="/public/images/bestplayers.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image src="/public/images/lpl.png"></image>
+    <swiper-item wx:for="{{headList}}" wx:key="postId">
+      <image bind:tap="handleTapImage" data-post-id="{{item.postId}}" src="{{item.imgSrc}}"></image>
     </swiper-item>
   </swiper>
 
   <block wx:for="{{postList}}" wx:key="postId">
-    <view data-post-id="{{item.postId}}" bind:tap="onToDeatil" class="post-container">
+    <view data-post-id="{{item.postId}}" bind:tap="handleTapDetail" class="post-container">
       <view class="post-author-date">
         <image catch:tap="handleTapAvatar" class="post-author-avatar" src="{{item.avatar}}"></image>
         <text class="post-date">{{item.date}}</text>

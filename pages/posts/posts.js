@@ -10,7 +10,7 @@ Page({
     postList: []
   },
 
-  onToDeatil(e) {
+  handleTapDetail(e) {
     const pid = e.currentTarget.dataset.postId;
     wx.navigateTo({
       url: `/pages/post-detail/post-detail?pid=${pid}`
@@ -21,12 +21,20 @@ Page({
 
   },
 
+  handleTapImage(e) {
+    const pid = e.currentTarget.dataset.postId;
+    wx.navigateTo({
+      url: `/pages/post-detail/post-detail?pid=${pid}`
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({
-      postList
+      postList,
+      headList: postList.slice(0, 3)
     })
   },
 
