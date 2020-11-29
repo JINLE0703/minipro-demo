@@ -1,8 +1,8 @@
 <!--pages/posts/posts.wxml-->
 <view>
-  <swiper indicator-dots indicator-active-color="#FFC0CB" autoplay interval="3000" circular>
+  <swiper indicator-dots indicator-active-color="#b3d4db" autoplay interval="3000" circular>
     <swiper-item wx:for="{{headList}}" wx:key="postId">
-      <image bind:tap="handleTapImage" data-post-id="{{item.postId}}" src="{{item.imgSrc}}"></image>
+      <image bind:tap="handleTapDetail" data-post-id="{{item.postId}}" src="{{item.imgSrc}}"></image>
     </swiper-item>
   </swiper>
 

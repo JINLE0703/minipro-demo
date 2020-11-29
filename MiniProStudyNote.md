@@ -6,6 +6,8 @@
 
 ### 项目功能
 
+tabBar 导航栏（已完成）
+
 #### 阅读页
 
 1. 轮播预览图（swiper 组件，已完成）
@@ -186,6 +188,10 @@ Page.data 和 Page.prototype.setData
 ##### wx.redirectTo(Object)
 
 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
+
+##### wx.switchTab(Object)
+
+跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
 
 ### 自定义属性
 
@@ -405,3 +411,12 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
 ### 小优化
 
 视频中对收藏图片的切换直接用 vx:if 切换性能不如用变量修改 src 的属性
+
+# Day04
+
+### 底部导航
+
+`app.json` 配置 `tabBar` 可以配置底部导航
+
+### 自定义组件
+

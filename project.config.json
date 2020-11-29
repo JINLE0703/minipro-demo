@@ -34,8 +34,8 @@
     "bundle": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.12.1",
-  "appid": "wx081f44cae93b64ab",
+  "libVersion": "2.14.0",
+  "appid": "wxf498ddb44b8650be",
   "projectname": "minipro",
   "debugOptions": {
     "hidedInDevtools": []

@@ -72,7 +72,7 @@ Page({
       ...wx.getStorageSync('posts_collected'),
       [this.data._pid]: false
     }) : 1;
-    // 初始化背景音乐
+    // 初始化背景音乐实例
     const mgr = wx.getBackgroundAudioManager();
     mgr.onPlay(() => {
       this.setData({
@@ -81,6 +81,12 @@ Page({
       app.gIsPlayingAudio = true;
     });
     mgr.onPause(() => {
+      this.setData({
+        isPlayingAudio: false
+      });
+      app.gIsPlayingAudio = false;
+    });
+    mgr.onStop(() => {
       this.setData({
         isPlayingAudio: false
       });
