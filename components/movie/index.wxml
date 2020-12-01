@@ -1,0 +1,8 @@
+<view class="container">
+  <image class="poster" src="{{movie.images.large}}"></image>
+  <text class="title">{{movie.title}}</text>
+  <view class="rate-container">
+    <l-rate score="{{movie.rating.stars/10}}" size="22" active-color="#FFD700" inActive-color="#D3D3D3" disabled />
+    <text class="score">{{movie.rating.average}}</text>
+  </view>
+</view>

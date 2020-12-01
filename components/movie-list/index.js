@@ -1,10 +1,14 @@
-// components/post/index.js
+// components/movie-list/index.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    item: {
+    title: {
+      type: String,
+      value: ''
+    },
+    movieList: {
       type: Object,
       value: {}
     }
@@ -21,8 +25,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleTapAvatar() {
 
-    }
   }
 })

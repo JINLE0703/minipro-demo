@@ -13,5 +13,6 @@ App({
   },
   // 标识背景音乐
   gIsPlayingAudio: false,
-  gIsPlayingPostId: -1
+  gIsPlayingPostId: -1,
+  baseURL: 'http://t.talelin.com/v2/movie/'
 })

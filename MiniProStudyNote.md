@@ -420,3 +420,34 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
 
 ### 自定义组件
 
+##### this 问题
+
+是否在页面文件中使用 `usingComponents` 会使得页面的 `this` 对象的原型稍有差异，包括：
+
+- 使用 `usingComponents` 页面的原型与不使用时不一致，即 `Object.getPrototypeOf(this)` 结果不同。
+- 使用 `usingComponents` 时会多一些方法，如 `selectComponent` 。
+- 出于性能考虑，使用 `usingComponents` 时， `setData` 内容不会被直接深复制，即 `this.setData({ field: obj })` 后 `this.data.field === obj` 。（深复制会在这个值被组件间传递时发生。）
+
+### 文本省略换行
+
+```css
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+word-break: break-all;
+// 需指定固定宽度
+```
+
+### 路由请求
+
+##### wx.request
+
+```js
+wx.request({
+	url: 'http://t.talelin.com/v2/movie/in_theaters',
+	success(res) {
+		console.log(res)
+	}
+})
+```
+
