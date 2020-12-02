@@ -9,7 +9,39 @@ Page({
   data: {
     inTheaters: [],
     comingSoon: [],
-    top250: []
+    top250: [],
+    hadSearched: false,
+    searchData: []
+  },
+
+  handleTapMore(e) {
+    wx.navigateTo({
+      url: `/pages/more-movies/more-movies?type=${e.currentTarget.dataset.type}`,
+    })
+  },
+
+  handleSearchConfirm(e) {
+    this.setData({
+      hadSearched: true
+    })
+    wx.request({
+      url: `${app.baseURL}search`,
+      data: {
+        q: e.detail.value
+      },
+      success: (res) => {
+        this.setData({
+          searchData: res.data.subjects
+        })
+      }
+    })
+  },
+
+  handleSearchCancel() {
+    this.setData({
+      hadSearched: false,
+      searchData: []
+    })
   },
 
   /**
@@ -17,7 +49,11 @@ Page({
    */
   onLoad: function (options) {
     wx.request({
-      url: `${app.baseURL}in_theaters?start=0&count=3`,
+      url: `${app.baseURL}in_theaters`,
+      data: {
+        start: 0,
+        count: 3
+      },
       success: (res) => {
         this.setData({
           inTheaters: res.data.subjects
@@ -26,7 +62,11 @@ Page({
       }
     });
     wx.request({
-      url: `${app.baseURL}coming_soon?start=0&count=3`,
+      url: `${app.baseURL}coming_soon`,
+      data: {
+        start: 0,
+        count: 3
+      },
       success: (res) => {
         this.setData({
           comingSoon: res.data.subjects
@@ -35,7 +75,11 @@ Page({
       }
     });
     wx.request({
-      url: `${app.baseURL}top250?start=0&count=3`,
+      url: `${app.baseURL}top250`,
+      data: {
+        start: 0,
+        count: 3
+      },
       success: (res) => {
         this.setData({
           top250: res.data.subjects

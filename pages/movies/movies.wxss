@@ -2,3 +2,20 @@
 page {
   background-color: #f2f2f2;
 }
+
+.ex-search-bar {
+  height: 90rpx !important;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30rpx;
+}
+
+.search-container::after {
+  content: '';
+  width: 200rpx;
+}

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30rpx;
+}
+
+.container::after {
+  content: '';
+  width: 200rpx;
+}
+
+.movie {
+  margin-bottom: 30rpx;
+}

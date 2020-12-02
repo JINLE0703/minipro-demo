@@ -21,9 +21,10 @@ tabBar 导航栏（已完成）
 
 #### 电影页
 
-1. 电影列表
-2. 更多列表（无限滚动加载数据）
+1. 电影列表（已完成）
+2. 更多列表（无限滚动加载数据）（已完成）
 3. 电影详情页
+4. 搜索（已完成）
 
 数据来源：api 接口数据
 
@@ -449,5 +450,52 @@ wx.request({
 		console.log(res)
 	}
 })
+```
+
+# Day05
+
+### 下拉刷新
+
+配置 json 文件里的 `enablePullDownRefresh`
+
+### 动态导航标题
+
+`wx.setNavigationBarTitle` 动态设置当前页面的标题，建议在 `onReady` 中设置
+
+```js
+wx.setNavigationBarTitle({
+  title: '当前页面'
+})
+```
+
+### 自定义事件
+
+组件内抛出事件 `this.triggerEvent()`，指定事件名、detail 对象和事件选项：
+
+```html
+<!-- 子组件 wxml -->
+<view bind:tap="handleTap"></view>
+```
+
+```js
+// 子组件 js
+handleTap() {
+  const id = 0;
+	this.triggerEvent('compTap',{
+    id: id
+  })
+}
+```
+
+```html
+<!-- 父组件 wxml -->
+<view bind:compTap="handleCompTap"></view>
+```
+
+```js
+// 父组件 js
+handleCompTap() {
+
+}
 ```
 
