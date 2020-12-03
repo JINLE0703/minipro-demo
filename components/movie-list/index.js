@@ -25,6 +25,22 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    handleTapMore() {
+      let type = '';
+      switch (this.properties.title) {
+        case '正在热映':
+          type = 'in_theaters';
+          break;
+        case '即将上映':
+          type = 'coming_soon';
+          break;
+        case '豆瓣Top250':
+          type = 'top250';
+          break;
+      }
+      this.triggerEvent('tapMore', {
+        type
+      });
+    }
   }
 })

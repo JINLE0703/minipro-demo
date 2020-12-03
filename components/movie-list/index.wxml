@@ -1,7 +1,7 @@
 <view class="container">
   <view class="title-container">
     <text>{{title}}</text>
-    <text class="more-text">更多 ></text>
+    <text class="more-text" bind:tap="handleTapMore">更多 ></text>
   </view>
   <view class="movie-container">
     <block wx:for="{{movieList}}" wx:key="id">

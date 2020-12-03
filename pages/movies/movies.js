@@ -16,7 +16,7 @@ Page({
 
   handleTapMore(e) {
     wx.navigateTo({
-      url: `/pages/more-movies/more-movies?type=${e.currentTarget.dataset.type}`,
+      url: `/pages/more-movies/more-movies?type=${e.detail.type}`,
     })
   },
 

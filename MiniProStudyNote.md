@@ -23,7 +23,7 @@ tabBar 导航栏（已完成）
 
 1. 电影列表（已完成）
 2. 更多列表（无限滚动加载数据）（已完成）
-3. 电影详情页
+3. 电影详情页（已完成）
 4. 搜索（已完成）
 
 数据来源：api 接口数据
@@ -481,9 +481,19 @@ wx.setNavigationBarTitle({
 // 子组件 js
 handleTap() {
   const id = 0;
-	this.triggerEvent('compTap',{
-    id: id
-  })
+	this.triggerEvent(
+  	'compTap',
+    // eventDetail
+  	{
+    	id: id
+  	},
+    // eventOption
+    {
+      bubbles: true,	// 事件是否冒泡
+      composed: true,	// 事件是否可以穿越组件边界，为false时，事件将只能在引用组件的节点树上触发，不进入其他任何组件内部
+      capturePhase: true	// 事件是否拥有捕获阶段
+    }
+  )
 }
 ```
 
@@ -494,8 +504,18 @@ handleTap() {
 
 ```js
 // 父组件 js
-handleCompTap() {
-
+handleCompTap(e) {
+	console.log(e.detail.id);	// 0
 }
+```
+
+### 图片预览
+
+`wx.previewImage` 在新页面中全屏预览图片。预览的过程中用户可以进行保存图片、发送给朋友等操作。
+
+```js
+wx.previewImage({
+	urls: [urls]
+})
 ```
 
